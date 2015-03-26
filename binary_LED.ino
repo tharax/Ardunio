@@ -1,8 +1,8 @@
-long interval = 1000, singleTime = 0, doubleTime = 0, quadTime = 0, eightTime = 0;
+long interval = 50; // milliseconds
+long Time1 = 0, Time2 = 0, Time3 = 0, Time4 = 0;
 
 void setup()
 {
-	//Serial.begin(9600);
 	setUpPin(13);
 	setUpPin(12);
 	setUpPin(11);
@@ -11,25 +11,25 @@ void setup()
 
 void loop()
 {
-	long timeNow = millis();
-	checkTimer(timeNow, singleTime, interval, 13);
-	//checkTimer(timeNow, doubleTime, 2 * interval, 12);
-	//checkTimer(timeNow, quadTime, 4 * interval, 11);
-	//checkTimer(timeNow, eightTime, 8 * interval, 9);
+	long currentTime = millis();
+	Time1 = switchLightBulb(currentTime, Time1, 1 * interval, 13);
+	Time2 = switchLightBulb(currentTime, Time2, 2 * interval, 12);
+	Time3 = switchLightBulb(currentTime, Time3, 4 * interval, 11);
+	Time4 = switchLightBulb(currentTime, Time4, 8 * interval, 9);
 }
 
-void checkTimer(long currentTime, long lastTime, long interval, int ledPin)
+void setUpPin(int LED)
 {
-	if (currentTime - lastTime >= interval)
+	pinMode(LED, OUTPUT);
+	digitalWrite(LED, LOW);
+}
+
+long switchLightBulb(long currentTime, long previousTime, long interval, int LED)
+{
+	if (currentTime - previousTime >= interval)
 	{
-		lastTime += interval;
-		digitalWrite(ledPin, !digitalRead(ledPin));
-		//Serial.println(currentTime);
+		digitalWrite(LED, !digitalRead(LED));
+		return previousTime + interval;
 	}
-}
-
-void setUpPin(int pin)
-{
-	pinMode(pin, OUTPUT);
-	digitalWrite(pin, LOW);
+	return previousTime;
 }
