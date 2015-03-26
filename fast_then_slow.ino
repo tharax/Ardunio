@@ -6,13 +6,10 @@ long eightTime = 0;
 
 void setup()
 {
-	Serial.begin(9600);
-	Serial.println("Start");
 	setUpPin(13);
 	setUpPin(12);
 	setUpPin(11);
 	setUpPin(9);
-	Serial.println();
 }
 
 void loop()
@@ -22,10 +19,6 @@ void loop()
 	{
 		singleTime = timeNow;
 		switchLightBulb(13);
-		Serial.print(digitalRead(9));
-		Serial.print(digitalRead(11));
-		Serial.print(digitalRead(12));
-		Serial.println(digitalRead(13));
 	}
 	if (timeNow - doubleTime > 2 * interval)
 	{
@@ -53,5 +46,4 @@ void setUpPin(int pin)
 {
 	pinMode(pin, OUTPUT);
 	digitalWrite(pin, LOW);
-	Serial.print(digitalRead(pin));
 }
