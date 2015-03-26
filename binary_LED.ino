@@ -1,11 +1,12 @@
-long interval = 50;
-long singleTime = 0;
-long doubleTime = 0;
-long quadTime = 0;
-long eightTime = 0;
+long interval = 10;
+long pause = 1200 * interval;
+long singleTime = 0, doubleTime = 0, quadTime = 0, eightTime = 0;
+int one = 0, two = 0, three = 0, four= 0;
 
 void setup()
 {
+	Serial.begin(9600);
+	Serial.println("Start");
 	setUpPin(13);
 	setUpPin(12);
 	setUpPin(11);
@@ -15,25 +16,39 @@ void setup()
 void loop()
 {
 	long timeNow = millis();
-	if (timeNow - singleTime > interval)
+	if (timeNow - singleTime >= interval)
 	{
-		singleTime = timeNow;
+		singleTime += interval;
 		switchLightBulb(13);
+		one++;
 	}
-	if (timeNow - doubleTime > 2 * interval)
+	if (timeNow - doubleTime >= 2 * interval)
 	{
-		doubleTime = timeNow;
+		doubleTime += (2 * interval);
 		switchLightBulb(12);
+		two++;
 	}
-	if (timeNow - quadTime > 4 * interval)
+	if (timeNow - quadTime >= 4 * interval)
 	{
-		quadTime = timeNow;
+		quadTime += (4 * interval);
 		switchLightBulb(11);
+		three++;
 	}
-	if (timeNow - eightTime > 8 * interval)
+	if (timeNow - eightTime >= 8 * interval)
 	{
-		eightTime = timeNow;
+		eightTime += (8 * interval);
 		switchLightBulb(9);
+		four++;
+	}
+	if (timeNow >= pause)
+	{
+		Serial.println("counters");
+		Serial.println(one);
+		Serial.println(two);
+		Serial.println(three);
+		Serial.println(four);
+		delay(600000);
+		timeNow = 0;
 	}
 }
 
