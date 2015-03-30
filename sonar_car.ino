@@ -8,7 +8,7 @@
 AF_DCMotor leftMotor(1);
 AF_DCMotor rightMotor(2);
 
-int currentSpeed = 127;
+int currentSpeed = 255;
 int currentDirection = FORWARD;
 long duration, distance;
 
